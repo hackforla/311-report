@@ -8,11 +8,11 @@ export const TIME_PERIOD = [
 ];
 
 export const YEARS = [
-  '2015',
-  '2016',
-  '2017',
-  '2018',
   '2019',
+  '2018',
+  '2017',
+  '2016',
+  '2015',
 ];
 
 export const MONTHS = [

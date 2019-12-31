@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import { getDataResources } from './Util/DataService';
-import { REQUESTS, COUNCILS } from './components/common/CONSTANTS';
+import { REQUESTS, COUNCILS, YEARS } from './components/common/CONSTANTS';
 
 import Header from './components/main/header/Header';
 import Body from './components/main/body/Body';
@@ -14,7 +14,7 @@ class App extends Component {
 
     this.state = {
       data: [],
-      year: '2015',
+      year: YEARS[0],
       startMonth: '1',
       endMonth: '12',
       timePeriod: '1 Month',
@@ -69,6 +69,29 @@ class App extends Component {
     // return `https://data.lacity.org/resource/${dataResources[year]}.json?$select=location,zipcode,address,requesttype,status,ncname,streetname,housenumber&$where=date_extract_m(CreatedDate)+between+${startMonth}+and+${endMonth}+and+requesttype='${request}'`;
   }
 
+  downloadAs = () => {
+    const {
+      startMonth, year, request, council, endMonth,
+    } = this.state;
+    axios.get(this.state.link, {
+      headers: {
+        "Content-Type": "application/octet-stream"
+      },
+      responseType: "blob"
+    })
+      .then(response => {
+        const a = document.createElement("a");
+        const url = window.URL.createObjectURL(response.data);
+        const now = new Date();
+        a.href = url;
+        a.download = `${request} - ${year} ${startMonth} to ${endMonth} - ${council} Pulled ${now.toLocaleDateString("en-US")}.csv`;
+        a.click();
+      })
+      .catch(err => {
+        console.log("error", err);
+      });
+  };
+
   render() {
     const {
       data,
@@ -90,6 +113,7 @@ class App extends Component {
           buildUrl={this.buildDataUrl}
           updateState={this.updateState}
           onChange={this.onChange}
+          downloadAs={this.downloadAs}
         />
         <Footer />
       </div>

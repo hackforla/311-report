@@ -20,7 +20,7 @@ const Footer = () => (
         |
         &nbsp;
         <a href="https://www.hackforla.org/">
-          Hack4LA
+          HackforLA
         </a>
       </p>
     </div>

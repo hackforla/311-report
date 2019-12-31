@@ -9,6 +9,7 @@ const Body = ({
   link,
   buildUrl,
   onChange,
+  downloadAs,
   updateState,
   startMonth,
   endMonth,
@@ -79,7 +80,7 @@ const Body = ({
       <div className="level">
         <div className="level-item">
           {link && !isGenerating && (
-            <a href={link}>
+            <a onClick={downloadAs}>
               Click Here to Download Report
             </a>
           )}
