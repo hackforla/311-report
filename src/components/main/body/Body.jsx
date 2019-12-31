@@ -8,6 +8,7 @@ const Body = ({
   // data,
   link,
   buildUrl,
+  onChange,
   updateState,
   startMonth,
   endMonth,
@@ -48,7 +49,7 @@ const Body = ({
 
           <div className="control">
             <div className="select">
-              <NCFilter />
+              <NCFilter onChange={onChange}/>
             </div>
           </div>
         </div>

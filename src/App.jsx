@@ -37,6 +37,10 @@ class App extends Component {
     });
   }
 
+  onChange = (e) => {
+    this.setState({council: e.target.value});
+  }
+
   toggleShowMarkers = () => {
     const { showMarkers } = this.state;
     this.setState({ showMarkers: !showMarkers });
@@ -66,11 +70,11 @@ class App extends Component {
   }
 
   render() {
-    const { 
-      data, 
-      startMonth, 
-      endMonth, 
-      link, 
+    const {
+      data,
+      startMonth,
+      endMonth,
+      link,
       year,
     } = this.state;
 
@@ -85,6 +89,7 @@ class App extends Component {
           link={link}
           buildUrl={this.buildDataUrl}
           updateState={this.updateState}
+          onChange={this.onChange}
         />
         <Footer />
       </div>
