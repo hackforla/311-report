@@ -12,7 +12,6 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '/dist'),
-    publicPath: '/311-report',
     filename: 'bundle.js',
   },
   resolve: {
