@@ -48,6 +48,6 @@ module.exports = {
     new CopyPlugin([{
       from: './public/index.html'
     },
-  {from:'src/', to:''}])
+  ])
   ],
 };
