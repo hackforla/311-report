@@ -1,13 +1,12 @@
 {
   "name": "311-data",
   "version": "0.1.0",
-  "homepage": "https://hackforla.github.io/311-data",
+  "homepage": "https://hackforla.github.io/311-report",
   "dependencies": {
     "axios": "^0.19.0",
     "bulma": "^0.8.0",
     "dataframe-js": "^1.4.3",
     "dotenv-webpack": "^1.7.0",
-    "gh-pages": "^2.1.1",
     "jest": "^24.9.0",
     "leaflet": "^1.5.1",
     "proptypes": "^1.1.0",
@@ -25,7 +24,7 @@
     "build": "webpack --config webpack.prod.js",
     "test": "jest",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
@@ -44,6 +43,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "^4.2.0",
+    "gh-pages": "^2.1.1",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
