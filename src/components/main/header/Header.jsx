@@ -17,7 +17,7 @@ const Header = () => (
         </div>
         <div className="column">
           <p className="title">
-            BETA
+            ALPHA
           </p>
         </div>
         <div className="column">
