@@ -1,8 +1,5 @@
 name: Dev_CI_Backend
-on:
-  push:
-    branches-ignore:
-      - master
+on: pull_request
 
 jobs:
   build:
@@ -22,5 +19,3 @@ jobs:
       run: npm run-script build
     - name: Run Tests
       run: export CI=true && npm run test -- --coverage
-      env:
-        MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
