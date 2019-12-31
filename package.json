@@ -16,6 +16,7 @@
     "react-leaflet-choropleth": "^2.0.0",
     "react-test-renderer": "^16.12.0",
     "react-vis": "^1.11.7",
+    "copy-webpack-plugin": "^5.1.1",
     "webpack-merge": "^4.2.2"
   },
   "scripts": {
