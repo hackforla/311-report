@@ -69,6 +69,28 @@ class App extends Component {
     // return `https://data.lacity.org/resource/${dataResources[year]}.json?$select=location,zipcode,address,requesttype,status,ncname,streetname,housenumber&$where=date_extract_m(CreatedDate)+between+${startMonth}+and+${endMonth}+and+requesttype='${request}'`;
   }
 
+  downloadAs = () => {
+    const {
+      startMonth, year, request, council, endMonth,
+    } = this.state;
+    axios.get(this.state.link, {
+      headers: {
+        "Content-Type": "application/octet-stream"
+      },
+      responseType: "blob"
+    })
+      .then(response => {
+        const a = document.createElement("a");
+        const url = window.URL.createObjectURL(response.data);
+        a.href = url;
+        a.download = `${council}_${request}_From${startMonth}To${endMonth}_${year}.csv`;
+        a.click();
+      })
+      .catch(err => {
+        console.log("error", err);
+      });
+  };
+
   render() {
     const {
       data,
@@ -90,6 +112,7 @@ class App extends Component {
           buildUrl={this.buildDataUrl}
           updateState={this.updateState}
           onChange={this.onChange}
+          downloadAs={this.downloadAs}
         />
         <Footer />
       </div>
