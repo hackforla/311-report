@@ -12,7 +12,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '/dist'),
-    publicPath: '/',
+    publicPath: '/311-report',
     filename: 'bundle.js',
   },
   resolve: {
@@ -46,8 +46,8 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new CopyPlugin([{
-      from: './public/index.html',
-      // to:'site'
-    }])
+      from: './public/index.html'
+    },
+  ])
   ],
 };
