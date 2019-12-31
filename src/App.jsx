@@ -82,8 +82,9 @@ class App extends Component {
       .then(response => {
         const a = document.createElement("a");
         const url = window.URL.createObjectURL(response.data);
+        const now = new Date();
         a.href = url;
-        a.download = `${council}_${request}_From${startMonth}To${endMonth}_${year}.csv`;
+        a.download = `${request} - ${year} ${startMonth} to ${endMonth} - ${council} Pulled ${now.toLocaleDateString("en-US")}.csv`;
         a.click();
       })
       .catch(err => {
