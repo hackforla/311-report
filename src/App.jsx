@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import { getDataResources } from './Util/DataService';
-import { REQUESTS, COUNCILS } from './components/common/CONSTANTS';
+import { REQUESTS, COUNCILS, YEARS } from './components/common/CONSTANTS';
 
 import Header from './components/main/header/Header';
 import Body from './components/main/body/Body';
@@ -14,7 +14,7 @@ class App extends Component {
 
     this.state = {
       data: [],
-      year: '2015',
+      year: YEARS[0],
       startMonth: '1',
       endMonth: '12',
       timePeriod: '1 Month',
