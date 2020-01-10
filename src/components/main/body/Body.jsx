@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import NCFilter from '../common/NCFilter';
 import DataPicker from '../common/dataPicker';
+import UserForm from '../common/userForm';
+
 // import PinMap from '../../PinMap/PinMap';
 // import Legend from '../common/Legend';
 
@@ -42,28 +44,40 @@ const Body = ({
           Thank you!
         </div>
       </div>
-      <div className="container">
-        <div className="field">
-          <label className="label">
+      <div className="container" style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
+        <div
+          className="column"
+          style={{ display: 'flex', flexDirection: 'column', maxWidth: '50%' }}
+        >
+          <div className="field">
+            <label className="label">
             Neighborhood Council
-          </label>
+            </label>
 
-          <div className="control">
-            <div className="select">
-              <NCFilter onChange={onChange}/>
+            <div className="control">
+              <div className="select">
+                <NCFilter onChange={onChange} />
+              </div>
+            </div>
+          </div>
+
+          <div className="field">
+            <div className="control">
+              <DataPicker
+                onDropdownSelect={updateState}
+                startMonth={startMonth}
+                endMonth={endMonth}
+                year={year}
+              />
             </div>
           </div>
         </div>
 
-        <div className="field">
-          <div className="control">
-            <DataPicker
-              onDropdownSelect={updateState}
-              startMonth={startMonth}
-              endMonth={endMonth}
-              year={year}
-            />
-          </div>
+        <div
+          className="column"
+          style={{ display: 'flex', flexDirection: 'column', maxWidth: '50%' }}
+        >
+          <UserForm />
         </div>
       </div>
       <div className="level">
