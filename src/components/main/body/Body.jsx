@@ -16,6 +16,10 @@ const Body = ({
   startMonth,
   endMonth,
   year,
+  username,
+  email,
+  reportIntent,
+  handleInputChange,
 }) => {
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -77,7 +81,12 @@ const Body = ({
           className="column"
           style={{ display: 'flex', flexDirection: 'column', maxWidth: '50%' }}
         >
-          <UserForm />
+          <UserForm
+            username={username}
+            email={email}
+            reportIntent={reportIntent}
+            handleInputChange={handleInputChange}
+          />
         </div>
       </div>
       <div className="level">
