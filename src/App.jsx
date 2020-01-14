@@ -23,6 +23,9 @@ class App extends Component {
       showMarkers: false,
       showMarkersDropdown: true,
       link: undefined,
+      username: '',
+      email: '',
+      reportIntent: '',
     };
   }
 
@@ -37,8 +40,15 @@ class App extends Component {
     });
   }
 
+  // Seperate func to update inputs. Can possibly reuse updateState above?
+  handleInputChange = (e) => {
+    e.preventDefault();
+    const { target: { name, value } } = e;
+    this.setState({ [name]: value });
+  }
+
   onChange = (e) => {
-    this.setState({council: e.target.value});
+    this.setState({ council: e.target.value });
   }
 
   toggleShowMarkers = () => {
@@ -64,7 +74,7 @@ class App extends Component {
     } = this.state;
 
     const dataResources = getDataResources();
-    const link = `https://data.lacity.org/resource/${dataResources[year]}.csv?$select=Address,count(*)+AS+CallVolume&$where=date_extract_m(CreatedDate)+between+${startMonth}+and+${endMonth}+and+RequestType='${request}'+and+NCName='${council}'&$group=Address&$order=CallVolume DESC&$limit=50000000`
+    const link = `https://data.lacity.org/resource/${dataResources[year]}.csv?$select=Address,count(*)+AS+CallVolume&$where=date_extract_m(CreatedDate)+between+${startMonth}+and+${endMonth}+and+RequestType='${request}'+and+NCName='${council}'&$group=Address&$order=CallVolume DESC&$limit=50000000`;
     this.setState({ link });
     // return `https://data.lacity.org/resource/${dataResources[year]}.json?$select=location,zipcode,address,requesttype,status,ncname,streetname,housenumber&$where=date_extract_m(CreatedDate)+between+${startMonth}+and+${endMonth}+and+requesttype='${request}'`;
   }
@@ -75,20 +85,20 @@ class App extends Component {
     } = this.state;
     axios.get(this.state.link, {
       headers: {
-        "Content-Type": "application/octet-stream"
+        'Content-Type': 'application/octet-stream',
       },
-      responseType: "blob"
+      responseType: 'blob',
     })
-      .then(response => {
-        const a = document.createElement("a");
+      .then((response) => {
+        const a = document.createElement('a');
         const url = window.URL.createObjectURL(response.data);
         const now = new Date();
         a.href = url;
-        a.download = `${request} - ${year} ${startMonth} to ${endMonth} - ${council} Pulled ${now.toLocaleDateString("en-US")}.csv`;
+        a.download = `${request} - ${year} ${startMonth} to ${endMonth} - ${council} Pulled ${now.toLocaleDateString('en-US')}.csv`;
         a.click();
       })
-      .catch(err => {
-        console.log("error", err);
+      .catch((err) => {
+        console.log('error', err);
       });
   };
 
@@ -99,6 +109,9 @@ class App extends Component {
       endMonth,
       link,
       year,
+      username,
+      email,
+      reportIntent,
     } = this.state;
 
     return (
@@ -114,6 +127,10 @@ class App extends Component {
           updateState={this.updateState}
           onChange={this.onChange}
           downloadAs={this.downloadAs}
+          username={username}
+          email={email}
+          reportIntent={reportIntent}
+          handleInputChange={this.handleInputChange}
         />
         <Footer />
       </div>
