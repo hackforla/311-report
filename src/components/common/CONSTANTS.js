@@ -8,6 +8,7 @@ export const TIME_PERIOD = [
 ];
 
 export const YEARS = [
+  '2020',
   '2019',
   '2018',
   '2017',
