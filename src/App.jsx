@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Mixpanel from './Util/Mixpanel';
 
 import { getDataResources } from './Util/DataService';
-import { REQUESTS, COUNCILS, YEARS } from './components/common/CONSTANTS';
+import {
+  REQUESTS,
+  COUNCILS,
+  MONTHS_MAP,
+  YEARS,
+} from './components/common/CONSTANTS';
 
 import Header from './components/main/header/Header';
 import Body from './components/main/body/Body';
@@ -79,6 +85,30 @@ class App extends Component {
     // return `https://data.lacity.org/resource/${dataResources[year]}.json?$select=location,zipcode,address,requesttype,status,ncname,streetname,housenumber&$where=date_extract_m(CreatedDate)+between+${startMonth}+and+${endMonth}+and+requesttype='${request}'`;
   }
 
+  logForm = () => {
+    const {
+      council,
+      year,
+      startMonth,
+      endMonth,
+      request,
+      username,
+      email,
+      reportIntent,
+    } = this.state;
+
+    Mixpanel.track('Report requested', {
+      'Neighborhood Council': council,
+      Year: year,
+      'Start Month': MONTHS_MAP[startMonth],
+      'End Month': MONTHS_MAP[endMonth],
+      'Service Request': request,
+      Username: username,
+      Email: email,
+      'Intended Report Usage': reportIntent,
+    });
+  }
+
   downloadAs = () => {
     const {
       startMonth, year, request, council, endMonth,
@@ -124,6 +154,7 @@ class App extends Component {
           year={year}
           link={link}
           buildUrl={this.buildDataUrl}
+          logForm={this.logForm}
           updateState={this.updateState}
           onChange={this.onChange}
           downloadAs={this.downloadAs}
