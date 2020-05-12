@@ -49,11 +49,11 @@ const Body = ({
     setUsernameError(noName);
     setEmailError(noEmail);
     setReportIntentError(noReportIntent);
-    if (!noName && !noEmail && !noReportIntent && !incompleteEmail) {
-      return true;
-    }
     if (!noEmail) {
       setInvalidEmailError(incompleteEmail);
+    }
+    if (!noName && !noEmail && !noReportIntent && !incompleteEmail) {
+      return true;
     }
     return false;
   };
