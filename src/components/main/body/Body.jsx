@@ -36,7 +36,7 @@ const Body = ({
     <>
       <div className="level">
         <div className="level-item" style={{ marginTop: '1.5em' }}>
-          Welcome to the beta version of our Los Angeles neighborhood 311 report generator.
+          Welcome to the alpha version of our Los Angeles neighborhood 311 report generator.
           <br />
           This 1st report will give you a list of the addresses with the highest incidence of
           the 311 issue that you select.
