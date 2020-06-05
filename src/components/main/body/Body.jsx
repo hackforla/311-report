@@ -10,6 +10,7 @@ const Body = ({
   // data,
   link,
   buildUrl,
+  logForm,
   onChange,
   downloadAs,
   updateState,
@@ -22,21 +23,57 @@ const Body = ({
   handleInputChange,
 }) => {
   const [isGenerating, setIsGenerating] = useState(false);
+  const [missingUsername, setUsernameError] = useState(false);
+  const [missingEmail, setEmailError] = useState(false);
+  const [invalidEmail, setInvalidEmailError] = useState(false);
+  const [missingReportIntent, setReportIntentError] = useState(false);
 
-  const handleOnGenerateClick = () => {
-    setIsGenerating(true);
-    setTimeout(() => {
-      setIsGenerating(false);
-    }, 1000);
-    buildUrl();
+  const errorStyle = {
+    color: '#FF0000',
+    marginBottom: '10px',
   };
 
+  const validateEmail = (userEmail) => {
+    // eslint-disable-next-line
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail)) {
+      return true;
+    }
+    return false;
+  };
+
+  const validateForm = () => {
+    const noName = username.trim().length === 0;
+    const noEmail = email.trim().length === 0;
+    const noReportIntent = reportIntent.trim().length === 0;
+    const incompleteEmail = !validateEmail(email);
+    setUsernameError(noName);
+    setEmailError(noEmail);
+    setReportIntentError(noReportIntent);
+    if (!noEmail) {
+      setInvalidEmailError(incompleteEmail);
+    }
+    if (!noName && !noEmail && !noReportIntent && !incompleteEmail) {
+      return true;
+    }
+    return false;
+  };
+
+  const handleOnGenerateClick = () => {
+    if (validateForm()) {
+      setIsGenerating(true);
+      setTimeout(() => {
+        setIsGenerating(false);
+      }, 1000);
+      buildUrl();
+      logForm();
+    }
+  };
 
   return (
     <>
       <div className="level">
         <div className="level-item" style={{ marginTop: '1.5em' }}>
-          Welcome to the beta version of our Los Angeles neighborhood 311 report generator.
+          Welcome to the alpha version of our Los Angeles neighborhood 311 report generator.
           <br />
           This 1st report will give you a list of the addresses with the highest incidence of
           the 311 issue that you select.
@@ -55,7 +92,7 @@ const Body = ({
         >
           <div className="field">
             <label className="label">
-            Neighborhood Council
+              Neighborhood Council
             </label>
 
             <div className="control">
@@ -86,8 +123,20 @@ const Body = ({
             email={email}
             reportIntent={reportIntent}
             handleInputChange={handleInputChange}
+            errors={{
+              missingUsername,
+              missingEmail,
+              invalidEmail,
+              missingReportIntent,
+            }}
           />
         </div>
+      </div>
+      <div className="has-text-centered" style={errorStyle}>
+        {(missingUsername || missingEmail || missingReportIntent)
+          && 'Please complete all required fields.'}
+        <br />
+        {invalidEmail && 'Please provide a valid email address.'}
       </div>
       <div className="level">
         <div className="level-item">
@@ -96,7 +145,7 @@ const Body = ({
             type="button"
             onClick={handleOnGenerateClick}
           >
-              Generate Report
+            Generate Report
           </button>
         </div>
       </div>
