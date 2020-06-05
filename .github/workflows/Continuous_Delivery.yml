@@ -16,21 +16,20 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    # - name: Install Packages
-    #   run: npm install
-    # - name: Build project
-    #   run: npm run-script build
+    - name: Install Packages
+      run: npm install
+    - name: Setup environment
+      run: |
+        echo MIXPANEL_TOKEN=${{ secrets.MIXPANEL_TOKEN }} >> .env
+    - name: Build project
+      run: npm run build
     # - name: Run Tests
     #   run: export CI=true && npm run test -- --coverage
-    #   env:
-    #     MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
-    # DISABLING DEPLOYMENT TO PRESERVE "PRODUCTION"
     - name: Deploy to GH pages
       uses: JamesIves/github-pages-deploy-action@master
       env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        # ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         MIXPANEL_TOKEN: ${{ secrets.MIXPANEL_TOKEN }}
         BASE_BRANCH: report_generator # The branch the action should deploy from.
         BRANCH: gh-pages # The branch the action should deploy to.
         FOLDER: dist # The folder the action should deploy.
-        BUILD_SCRIPT: npm install && npm run build  # The build script the action should run prior to deploying.
